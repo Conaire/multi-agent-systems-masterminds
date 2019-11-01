@@ -1,0 +1,139 @@
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,900,900italic,300);
+body {
+  background: #333;
+}
+
+
+.bottom-info{
+
+  color: white;
+  padding-bottom: 50px;
+
+
+  font-family: tahoma;
+
+}
+
+.bottom-info b{
+
+  padding-bottom: 10px;
+
+
+}
+
+.mastermind {
+  font-family: "Alegreya Sans SC", Arial;
+  min-height: 500px;
+  padding: 30px;
+  overflow: hidden;
+  position: relative;
+  /float: left;
+  /width: 500px;
+}
+.mastermind .mastermind-board {
+  border-radius: 10px;
+  width: 200px;
+  margin: auto;
+  padding: 5px 2px;
+  background: #D0C3B0;
+  border: 1px solid #4C3434;
+  box-shadow: 2px 2px 5px 1px rgba(173, 173, 173, 0.37);
+  text-align: center;
+}
+.mastermind .mastermind-board h3, .mastermind .mastermind-board h5 {
+  margin: 5px 0;
+}
+.mastermind .mastermind-board .start-button {
+  line-height: 30px;
+  height: 40px;
+}
+.mastermind .mastermind-board .start-button a {
+  font-size: 20px;
+}
+.mastermind .mastermind-board .mastermind-row {
+  position: relative;
+  padding: 3px;
+}
+.mastermind .mastermind-board .mastermind-row.current {
+  background: #e1d9cd;
+}
+.mastermind .mastermind-board .mastermind-row .marbles, .mastermind .mastermind-board .mastermind-row .pegs {
+  display: inline-block;
+  vertical-align: middle;
+}
+.mastermind .mastermind-board .mastermind-row .marbles.winning-marbles, .mastermind .mastermind-board .mastermind-row .pegs.winning-marbles {
+  border: 1px solid #555;
+  border-radius: 10px;
+  width: 170px;
+  margin-top: 5px
+}
+.mastermind .mastermind-board .mastermind-row .marble-crater {
+  display: inline-block;
+  width: 30px;
+  padding: 5px 0;
+  text-align: center;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+.mastermind .mastermind-board .mastermind-row .marble-crater.selected {
+  box-shadow: 0 0 6px 1px #666;
+}
+.mastermind .mastermind-board .mastermind-row .marble-crater.selected .marble {
+  background: #ccc;
+}
+.mastermind .pegs {
+  width: 20px;
+}
+.mastermind .pegs .peg {
+  display: block;
+  float: left;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin: 2px;
+  background: #907e7e;
+}
+.mastermind .pegs .peg.correct {
+  background: #000;
+}
+.mastermind .pegs .peg.misplaced {
+  background: #fff;
+}
+.mastermind .marble {
+  width: 20px;
+  height: 20px;
+  background: #888;
+  border: 1px solid #444;
+  border-radius: 50%;
+  margin: auto;
+  vertical-align: middle;
+}
+.mastermind .marble.empty {
+  width: 15px;
+  height: 15px;
+}
+.mastermind .marble-buttons {
+  position: absolute;
+  left: 100%;
+  top: -25%;
+  width: 100px;
+  user-select: none;
+  border-radius: 10px;
+  background: #fafafa;
+  border: 1px solid #aaa;
+  box-shadow: 1px 1px 4px 1px rgba(122, 122, 122, 0.8);
+  padding: 3px;
+}
+.mastermind .marble-buttons .marble-button {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  user-select: none;
+  display: inline-block;
+  margin: 3px;
+  margin: 1px;
+}
+.mastermind .game-info {
+  margin-left: 200px;
+}

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Mastermind --- the classic code breaking game</title>
+  
+  
+  <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
+
+      <link rel="stylesheet" href="./style.css">
+
+    <script src="jquery-3.4.1.min.js"></script>
+  
+</head>
+
+<body>
+
+  <div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+
+        <div>
+            <button id="cheat-button" style=" margin-top: 30px">Cheat: OFF</button>
+
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-xs-6">
+
+                <mastermind-game params="controlObservable: mastermindControl"></mastermind-game>
+
+
+                <div class = "row bottom-info">
+
+                    <div class="col-xs-5">
+
+                        <b>Computer Knows<b>
+
+
+                        <div id = "computer_know">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-5">
+
+                        <b>Computer States</b>
+
+
+                        <div id = "computer_states">
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="col-xs-5">
+                <mastermind-game params="controlObservable: mastermindControl, isComputer: true"></mastermind-game>
+
+
+                <div class = "row bottom-info">
+                    <div class="col-xs-5">
+
+                        <b>You Know</b>
+
+
+                        <div id = "you_know">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-5">
+
+                        <b>Your States</b>
+
+                        <div id = "you_states">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+    </div>
+
+  </div>
+</div>
+
+
+  <script>
+
+      var b = document.getElementById("cheat-button");
+      b.addEventListener("click", function(){
+
+          DEBUG = !DEBUG;
+
+          computerMaster.DEBUG(DEBUG);
+          playerMaster.DEBUG(DEBUG);
+
+          var label = DEBUG? "ON": "OFF";
+
+          b.innerText = "Cheat: " + label;
+
+
+      })
+
+
+  </script>
+
+<template id="mastermind-game-template">
+  <div class="mastermind">
+    <div class="mastermind-board">
+      <!-- ko if: DEBUG & false --><h5 class="text-danger">--DEBUG MODE--</h5><!-- /ko -->
+      <h3>
+          <!-- ko if:  $component.isComputer --> Computer <!-- /ko -->
+          <!-- ko ifnot:  $component.isComputer -->  You <!-- /ko -->
+
+
+      </h3>
+
+
+
+        <div class="start-button"  data-bind="style:{ visibility: playing() ? 'hidden' : 'visible'}">
+
+            <!-- ko ifnot:  $component.isComputer --> <a href="#" data-bind="click: startGame">Start</a>
+            <!-- /ko -->
+      </div>
+      <div class="mastermind-row" class="master">
+        <div class="pegs"></div><label>Opponent Code</label>
+      <div class="marbles winning-marbles" data-bind="foreach: winRange">
+          <div class="marble-crater">
+          <div class="marble" data-bind="style:{background: $component.revealing() || $component.DEBUG() ? $component.winningSequence()[$index()] : ''}, css:{ empty: !( $component.DEBUG() || $component.revealing())}">
+          </div>
+          </div>
+        </div>
+
+        <label>Player Code</label><div class="marbles winning-marbles" data-bind="foreach: winRange">
+              <div class="marble-crater">
+                  <div class="marble" data-bind="style:{background: $component.revealing() || $component.DEBUG() ? $component.playerSequence()[$index()] : ''}, css:{ empty: !( $component.DEBUG() || $component.revealing())}">
+                  </div>
+              </div>
+          </div>
+
+
+
+      <!-- ko foreach: rowMaster -->
+      <div class="mastermind-row" data-bind="css:{ current: $component.playing() && current }">
+        <div class="pegs">
+          <!-- ko foreach: $component.winRange -->
+          <div class="peg" data-bind="css: $component.getPegClass( $parentContext.$index(), $data )"></div>
+          <!-- /ko -->
+        </div>
+        <div class="marbles" data-bind="foreach: colors"> <div class="marble-crater" data-bind="css:{ selected: $component.playing() && $parent.current && $component.selectedIndex()===$index()}"> 
+          <!-- ko if: $parent.current -->
+             <div class="marble" data-bind="style:{background: $data || ''}, click: $component.selectedIndex.bind( $component, $index()), css:{ empty: !$data }">
+            </div>
+         <!-- /ko -->
+          <!-- ko ifnot: $parent.current -->
+            <div class="marble" data-bind="style:{background: $data || ''}, css:{ empty: !$data }">
+            </div>
+          <!-- /ko -->
+
+
+
+          </div>
+
+
+
+        </div>
+
+
+          <!-- my pegs -->
+          <div class="pegs">
+              <!-- ko foreach: $component.winRange -->
+              <div class="peg" data-bind="css: $component.getPlayerPegClass( $parentContext.$index(), $data )"></div>
+              <!-- /ko -->
+          </div>
+
+        <!-- ko if: current -->
+          <div class="marble-buttons" data-bind="visible: $component.playing">
+            <!-- ko foreach: $component.colors -->
+             <div class="marble marble-button" data-bind="style:{background: $data}, click: $component.setColor.bind( $component, $data )"></div>     <!-- /ko -->
+             <a href="#" class="btn btn-block btn-success btn-xs" data-bind="click: $component.submitRow, visible: $component.playing() && $component.fullPlayerTray()">
+              <i class="glyphicon glyphicon-ok"></i>
+            </a>
+
+          </div>
+        <!-- /ko -->
+      </div>
+      <!-- /ko -->
+    </div>
+
+  </div>
+</template>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/store.js/1.3.17/store.min.js'></script>
+
+  
+
+    <script  src="./script.js"></script>
+
+
+
+
+</body>
+
+</html>

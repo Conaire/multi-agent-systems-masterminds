@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Master(s)minds</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+	</head>
+	<body class="homepage">
+
+		<!-- Header -->
+		<div id="header">
+			<div class="container">
+
+				<!-- Logo -->
+				<div id="logo">
+					<h1><a href="#">Mastersminds: Logic Implementation</a></h1>
+				</div>
+				
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html">Introduction</a></li>
+						<li class="active"><a href="modellinglogic.html">Modelling Logic</a></li>
+						<li><a href="projectcode.html">Code</a></li>
+					</ul>
+				</nav>
+
+			</div>
+			<div class="12u" style="color: antiquewhite">
+				
+					<p align="center">Avinash Pathapati :: Conaire O Codlatáin Lachtna :: Varun Ravi Varma</p>
+			</div>
+
+
+		<!-- <div id="banner">&nbsp;</div> -->
+
+		<div id="info">
+			<div class="container">
+				<div class="row">
+
+					<div class="9u">
+						<section>
+							<!-- <a href="#" class="image full"><img src="images/pics02.jpg" alt=""></a> -->
+							<header>
+								<h2>Game Logic</h2>
+							</header>
+							<p>The game has been modelled in order to understand the decision making processes of the agents involved <i>(a CPU player and a human player)</i>. Each possible combination is treated as a possible world for the player. This gives rise to 64 states per player at the beginning of a game. As the game progresses, based on the feedback logic, states are deemed logically impossible. </p>
+
+							<p>Knowledge at the beginning of a game is of the following form:</p>
+							<p><img src="images/Kp_initial.png"/></p>
+							<p><img src="images/Kc_initial.png"/></p>
+							
+							<p>For example, if a player guesses <b>Red, Blue, Green</b> and then receives as feedback <i>three white</i> pegs, then the player knows that the color <b>Yellow</b> is not present in the opponent's code.</p>
+							<p><img src="images/Kp_updated.png"/></p>
+							<p><img src="images/Common_initial.png"/></p>
+						</section>
+
+
+
+						<section>
+								<header>
+									<h2>Common Knowledge Generation</h2>
+								</header>
+							<p>
+							Common knowledge pool is generated based on the feedback a player presents on their guess as well as the opponent's feedback.
+							</p>
+							<p>For example, if a player guesses <b>Red, Blue, Green</b> and then receives as feedback <i>three white</i> pegs, then the player knows that the color <b>Yellow</b> is not present in the opponent's code. The opponent is also aware of this fact, hence both agents now know that the color <b>Yellow</b> is not present in one of the codes and they know that their respective opponents also know the same, thus this becomes common knowledge.</p>
+							<p><img src="images/Common_initial.png"/></p>
+						</section>
+
+						<section>
+							<header>
+								<h2>Playing Strategies</h2>
+							</header>
+
+
+
+							<p>When playing, players aim to increase common knowledge about their opponents code while limiting common knowledge about
+								their own. To do this, players can use certain strategies.
+
+							</p>
+
+							<p>
+
+								At the start of a game a player might include at least one of the colors in their code in their guess.
+								For example, say the player's code is yellow yellow green and the
+								player's guess is 'red blue blue'.
+								This means no pegs will be given as feedback which results in the public announcement:
+							</p>
+
+
+							<p>
+
+								<img src="images/strat_onein_1.gif">
+								<!-- <a href="https://www.codecogs.com/eqnedit.php?latex=$$&space;M&space;\models&space;{[&space;\neg(&space;r_1&space;\vee&space;b_1)&space;\wedge&space;\neg(&space;r_2&space;\vee&space;b_2)&space;\wedge&space;\neg(&space;r_3&space;\vee&space;b_3)&space;]}&space;C((&space;g_1&space;\vee&space;y_1)&space;\wedge&space;(&space;g_2&space;\vee&space;y_2)&space;\wedge&space;(&space;g_3&space;\vee&space;y_3&space;)&space;$$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$$&space;M&space;\models&space;{[&space;\neg(&space;r_1&space;\vee&space;b_1)&space;\wedge&space;\neg(&space;r_2&space;\vee&space;b_2)&space;\wedge&space;\neg(&space;r_3&space;\vee&space;b_3)&space;]}&space;C((&space;g_1&space;\vee&space;y_1)&space;\wedge&space;(&space;g_2&space;\vee&space;y_2)&space;\wedge&space;(&space;g_3&space;\vee&space;y_3&space;)&space;$$" title="$$ M \models {[ \neg( r_1 \vee b_1) \wedge \neg( r_2 \vee b_2) \wedge \neg( r_3 \vee b_3) ]} C(( g_1 \vee y_1) \wedge ( g_2 \vee y_2) \wedge ( g_3 \vee y_3 ) $$" /></a>-->
+
+							</p>
+
+							<p>
+								If they had instead made the guess 'blue blue yellow' they would get a feedback of one white peg which results in the public announcement:
+
+							</p>
+
+
+							<p>
+
+								<img src="images/strat_onein_2.gif">
+								<!-- <a href="https://www.codecogs.com/eqnedit.php?latex=$$&space;M&space;\models&space;{[&space;(&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;b_3)&space;]}&space;C((&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;y_3&space;)&space;$$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$$&space;M&space;\models&space;{[&space;(&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;b_3)&space;]}&space;C((&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;y_3&space;)&space;$$" title="$$ M \models {[ ( y_1 \vee b_1) \vee ( y_2 \vee b_2) \vee ( y_3 \vee b_3) ]} C(( y_1 \vee b_1) \vee ( y_2 \vee b_2) \vee ( y_3 \vee y_3 ) $$" /></a>-->
+							</p>
+
+							<p>
+								The second announcement results in the exclusion of lesser states for the opponent, so it is more desirable for the player to let the opponent have a larger number of possible worlds.
+							</p>
+
+
+							<p>
+								Another strategy is to make guesses following an opponents guess that do not increase common knowledge of your
+								code at all.
+
+								<br>
+								Say, your first code is 'yellow green red' and your first guess is 'green red blue'. The opponent will get feedback
+								of two white pegs. Then your opponent guesses 'yellow yellow red' which gives the feed back of two black pegs.
+								The opponent now knows that you have a red in the third position. This is true because the alternative is that
+								yellow is in the first and second position but this can't be the case as two white pegs were given for the first guess
+								which indicates that two of the three colors appear in the code, so along with the two yellow this would make for positions
+								but there are only three. If yellow is in the first position, blue or green can be in the second. If yellow is in the second position
+								only blue can be in the first as green can't as we would then have gotten a black peg in the feed back for the very first guess.
+
+								This gives the public announcement:
+
+
+							</p>
+
+
+							<p>
+
+								<img src="images/start_noc_1.gif">
+								<!-- <a href="https://www.codecogs.com/eqnedit.php?latex=$$&space;M&space;\models&space;{[&space;(&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;b_3)&space;]}&space;C((&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;y_3&space;)&space;$$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$$&space;M&space;\models&space;{[&space;(&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;b_3)&space;]}&space;C((&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;y_3&space;)&space;$$" title="$$ M \models {[ ( y_1 \vee b_1) \vee ( y_2 \vee b_2) \vee ( y_3 \vee b_3) ]} C(( y_1 \vee b_1) \vee ( y_2 \vee b_2) \vee ( y_3 \vee y_3 ) $$" /></a>-->
+
+								<!--
+$$
+    M \models {[
+                ( y_1 \wedge r_3)    \vee
+               ( y_2 \wedge r_3)  ]} C( ( y_1 \wedge (b_2 \vee g_2)\wedge r_3) \vee ( b_1 \wedge y_2 \wedge r_3) )
+   $$ -->
+							</p>
+
+
+							<p>
+								Then if you guess 'red red yellow', which may give you more information, the opponent will get two white pegs, this doesn't increase the opponents knowledge of your code
+								at all as we already have:
+
+
+							</p>
+
+							<p>
+
+								<img src="images/start_noc_2.gif">
+
+								<!-- $$
+   K_{opponent} ((y1 \vee y2) \wedge r3)
+   $$ -->
+
+								<!-- <a href="https://www.codecogs.com/eqnedit.php?latex=$$&space;M&space;\models&space;{[&space;(&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;b_3)&space;]}&space;C((&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;y_3&space;)&space;$$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$$&space;M&space;\models&space;{[&space;(&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;b_3)&space;]}&space;C((&space;y_1&space;\vee&space;b_1)&space;\vee&space;(&space;y_2&space;\vee&space;b_2)&space;\vee&space;(&space;y_3&space;\vee&space;y_3&space;)&space;$$" title="$$ M \models {[ ( y_1 \vee b_1) \vee ( y_2 \vee b_2) \vee ( y_3 \vee b_3) ]} C(( y_1 \vee b_1) \vee ( y_2 \vee b_2) \vee ( y_3 \vee y_3 ) $$" /></a>-->
+							</p>
+
+
+						</section>
+
+						<section>
+							<header>
+								<h2>Growth of Knowledge</h2>
+							</header>
+						<p>
+						There is a change in the knowledge of the agents as the game progresses due to the reduction of states and the feedback generated. The growth is not necessarily at a constant rate, since the agents aim to restrict the information they pass to their opponents while trying to guess codes.</p>
+
+						<p>The computer agent utilizes the following strategy in order to reduce its possible worlds while continuing to guess the opponent's code. Every world the agent chooses returns feedback on its own code in the following hierarchy <i>(in decreasing order of importance)</i>:
+							<ol style="list-style-type: decimal">
+							<li>
+								1 white peg
+							</li>
+							<li>
+								1 black peg
+							</li>
+							<li>
+								2 white pegs
+							</li>
+							<li>
+								1 white peg and 1 black peg
+							</li>
+							<li>2 black pegs</li>
+							<li>
+								3 white pegs
+							</li>
+							<li>
+								2 white pegs and 1 black peg
+							</li>
+							<li>
+								1 white peg and 2 black pegs
+							</li>
+						</ol>
+						</p>
+						<p>This greedy state search approach was suggested by Donald Knuth<sup id="cite_ref-:0_3-0" class="references"><a href="#cite_note-:0-3">[3]</a></sup>  to solve the Mastermind game in 5 moves.</p>
+
+						<p>
+					
+						</p>
+					</section>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="references">
+				<div class="container">
+					<div class="row">
+						<div class="12u">
+							<section>
+								<header>
+									<h3>References</h3>
+								</header>
+								<p>
+									<ol style="list-style-type: decimal" start="3">
+										<li id="cite_note-:0-3"><a href="http://mercury.webster.edu/aleshunas/Support%20Materials/Analysis/Dowelll%20-%20Mastermind%20v2-0.pdf">Defeating Mastermind</a>, J. Dowell, 2009</li>
+									</ol>
+								</p>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>

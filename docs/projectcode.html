@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Master(s)minds</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+	</head>
+	<body class="homepage">
+
+		<!-- Header -->
+		<div id="header">
+			<div class="container">
+
+				<!-- Logo -->
+				<div id="logo">
+					<h1><a href="#">Mastersminds: Implementation</a></h1>
+				</div>
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html">Introduction</a></li>
+						<li><a href="modellinglogic.html">Modelling Logic</a></li>
+						<li class="active"><a href="projectcode.html">Code</a></li>
+					</ul>
+				</nav>
+
+			</div>
+		</div>
+		<div class="12u" style="color: antiquewhite">
+				
+				<p align="center">Avinash Pathapati :: Conaire O Codlatáin Lachtna :: Varun Ravi Varma</p>
+		</div>
+
+		<!-- <div id="banner">&nbsp;</div> -->
+
+		<div id="info">
+			<div class="container">
+				<div class="row">
+
+					<div class="9u">
+						<section>
+							<!-- <a href="#" class="image full"><img src="images/pics02.jpg" alt=""></a> -->
+							<header>
+								<h2>Project Implementation</h2>
+							</header>
+							<p> The project code is hosted on this <a href="https://github.com/Avinashpathapati/MAS">GitHub repository.</a> Installation and gameplay is covered in README.md</p>
+							<p>The game is currently implemented for four color pegs and three positions (three peg color code) for ease of modelling. This can easily be extended to incorporate more colors and peg positions in the backend as well as the UI.</p>
+							<header>
+									<h3><b>Backend Game Services</b></h3>
+								</header>
+							<p>
+								The backend services were developed in python3. The Services consist of the following methods:
+								<ul style="list-style-type:disc;">
+									<li><b>play_game</b>: Initializes the game variables and the pegs. Manages flow of rounds and player actions.</li>
+									<li><b>make_guess</b>: Prompts the CPU player to make a guess based on the an extension of Donald Knuth's Mastermind strategy.</li>
+									<li><b>get_feedbacks</b>: In order to keep the feedback consistent and fair, the computer generates both sets of feedback (opponent to player and player on self). This is done by comparing the guess with the original code.</li>
+									<li><b>filter_inval_states_after_move</b>: At the initialization of the game, a set of valid states are created for each player. Post each guess and feedback round, these valid states are reduced based on the knowledge generated.</li>
+									<li><b>current_knowledge</b>: This method keeps track of the knowledge each player has using the feedback and reduced state list.</li>
+								</ul>
+							</p>
+							<p>
+								The entire application has been wrapped into a Flask web service application with the following routes matching the methods described above:
+								<ul style="list-style-type:disc;">
+										<li><b>get_feedback</b></li>
+										<li><b>get_comp_guess</b></li>
+										<li><b>filter_invalid_states</b></li>
+										<li><b>filter_invalid_states_and_guess</b></li>
+									</ul>
+							</p>
+						</section>
+						<section>
+								<header>
+										<h3><b>Frontend Game UI</b></h3>
+									</header>
+								<p>
+									The frontend services were developed in HTML/CSS/JS. The UI consists of the following parts
+									<p><img src="images/game_screen.png" height="90%" width="90%"/></p>
+									<ul style="list-style-type:disc;">
+										<li><b>Player guess board</b></li>
+										<li><b>Opponent guess board</b></li>
+										<li><b>Player knowledge representation</b></li>
+										<li><b>Opponent knowledge representation</b></li>
+										<li><b>Player possible states</b></li>
+										<li><b>Opponent possible states</b></li>
+									</ul>
+								</p>
+						</section>
+						<section>
+							<header>
+								<h2>
+									Game Flow
+								</h2>
+							</header>
+							<p>
+								The game begins with each player having 64 possible worlds (each world being a code of 3 pegs). The player and CPU set codes simultaneously, with the player entering a 3 word code comprised of the colors <i>'Red', 'Blue', 'Green' or 'Yellow'</i>. With each round of guesswork, feedback that is computed by the service is provided to the frontend in terms of black or white pegs and an update to the knowledge models. The game ends when one player successfully deciphers the opponent's code.
+							</p>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</body>
+</html>
